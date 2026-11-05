@@ -1,0 +1,295 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0056a6">
+  <title>Preventa Pepsi</title>
+  <style>
+    :root {
+      font-family: Arial, sans-serif;
+      color: #17212b;
+      background: #f3f6fa;
+    }
+
+    * { box-sizing: border-box; }
+    body { margin: 0; }
+
+    header {
+      background: #0056a6;
+      color: white;
+      padding: 18px 16px;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 22px;
+    }
+
+    header p {
+      margin: 5px 0 0;
+      font-size: 13px;
+    }
+
+    nav {
+      display: flex;
+      gap: 7px;
+      overflow-x: auto;
+      padding: 10px;
+      background: white;
+      position: sticky;
+      top: 0;
+      z-index: 2;
+      border-bottom: 1px solid #dce3eb;
+    }
+
+    nav button {
+      white-space: nowrap;
+      border: 0;
+      border-radius: 8px;
+      padding: 10px 12px;
+      background: #e8eff8;
+      color: #06477f;
+      font-weight: bold;
+    }
+
+    nav button.active {
+      background: #0056a6;
+      color: white;
+    }
+
+    main {
+      max-width: 900px;
+      margin: auto;
+      padding: 16px;
+    }
+
+    .panel {
+      background: white;
+      border-radius: 12px;
+      padding: 16px;
+      margin-bottom: 14px;
+      box-shadow: 0 1px 5px #14263a12;
+    }
+
+    h2 {
+      margin: 0 0 14px;
+      font-size: 20px;
+    }
+
+    h3 {
+      font-size: 16px;
+      margin: 15px 0 8px;
+    }
+
+    label {
+      display: block;
+      font-size: 13px;
+      font-weight: bold;
+      margin: 10px 0 5px;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      padding: 11px;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      font: inherit;
+      background: white;
+    }
+
+    textarea {
+      min-height: 75px;
+      resize: vertical;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 10px;
+    }
+
+    button.primary {
+      background: #0056a6;
+      color: white;
+      border: 0;
+      border-radius: 8px;
+      padding: 11px 14px;
+      font-weight: bold;
+    }
+
+    button.secondary {
+      background: #e8eff8;
+      color: #06477f;
+      border: 0;
+      border-radius: 8px;
+      padding: 10px 12px;
+      font-weight: bold;
+    }
+
+    button.danger {
+      background: #b42318;
+      color: white;
+      border: 0;
+      border-radius: 8px;
+      padding: 9px 11px;
+    }
+
+    .actions {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: 13px;
+    }
+
+    .item {
+      border: 1px solid #e0e6ee;
+      border-radius: 9px;
+      padding: 12px;
+      margin: 8px 0;
+    }
+
+    .muted {
+      color: #64748b;
+      font-size: 13px;
+    }
+
+    .empty {
+      color: #64748b;
+      padding: 12px 0;
+    }
+
+    .hidden { display: none !important; }
+
+    .pill {
+      display: inline-block;
+      background: #e8eff8;
+      color: #06477f;
+      padding: 3px 8px;
+      border-radius: 20px;
+      font-size: 12px;
+    }
+
+    .notice {
+      background: #fff7df;
+      border: 1px solid #f1d58b;
+      border-radius: 8px;
+      padding: 10px;
+      font-size: 13px;
+    }
+
+    footer {
+      text-align: center;
+      color: #64748b;
+      font-size: 12px;
+      padding: 20px;
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <h1>Preventa Pepsi</h1>
+  <p>Gestión personal de clientes, productos, pedidos y visitas</p>
+</header>
+
+<nav id="menu">
+  <button data-view="inicio" class="active">Inicio</button>
+  <button data-view="clientes">Clientes</button>
+  <button data-view="catalogo">Catálogo</button>
+  <button data-view="productos">Productos y stock</button>
+  <button data-view="pedidos">Pedidos</button>
+  <button data-view="rutas">Rutas y visitas</button>
+  <button data-view="objetivos">Objetivos</button>
+  <button data-view="promos">Promociones</button>
+  <button data-view="tareas">Avisos y tareas</button>
+</nav>
+
+<main>
+
+  <section id="vista-inicio" class="view">
+    <div class="panel">
+      <h2>Mis herramientas</h2>
+      <p>La aplicación está preparada para empezar vacía. Añade primero tus clientes y productos.</p>
+      <div class="notice">
+        El stock se controla por cliente. No se descuenta ni se necesita inventario del vehículo.
+      </div>
+    </div>
+
+    <div class="panel">
+      <h3>Resumen</h3>
+      <div id="resumen" class="muted">Cargando…</div>
+    </div>
+  </section>
+
+  <section id="vista-clientes" class="view hidden">
+    <div class="panel">
+      <h2>Clientes</h2>
+      <div id="clientes-app"></div>
+    </div>
+  </section>
+
+  <section id="vista-catalogo" class="view hidden">
+    <div class="panel">
+      <h2>Catálogo general</h2>
+      <p class="muted">
+        Aquí se administrarán los productos generales de la aplicación.
+      </p>
+      <div id="catalogo-app"></div>
+    </div>
+  </section>
+
+  <section id="vista-productos" class="view hidden">
+    <div class="panel">
+      <h2>Productos y stock por cliente</h2>
+      <div id="productos-app"></div>
+    </div>
+  </section>
+
+  <section id="vista-pedidos" class="view hidden">
+    <div class="panel">
+      <h2>Pedidos</h2>
+      <div id="pedidos-app"></div>
+    </div>
+  </section>
+
+  <section id="vista-rutas" class="view hidden">
+    <div class="panel">
+      <h2>Rutas y visitas</h2>
+      <div id="rutas-app"></div>
+    </div>
+  </section>
+
+  <section id="vista-objetivos" class="view hidden">
+    <div class="panel">
+      <h2>Cuadro de Mando de Objetivos</h2>
+      <div id="objetivos-app"></div>
+    </div>
+  </section>
+
+  <section id="vista-promos" class="view hidden">
+    <div class="panel">
+      <h2>Promociones</h2>
+      <div id="promos-app"></div>
+    </div>
+  </section>
+
+  <section id="vista-tareas" class="view hidden">
+    <div class="panel">
+      <h2>Avisos y tareas</h2>
+      <div id="tareas-app"></div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  Preventa Pepsi · Datos guardados localmente en este dispositivo
+</footer>
+
+<script src="app.js"></script>
+<script src="entregas.js"></script>
+
+</body>
+</html>
